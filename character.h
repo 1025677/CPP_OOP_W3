@@ -6,12 +6,27 @@
 #include <iostream>
 #include <iomanip>
 #include <exception>
+#include <sstream>
 
 using namespace std;
 
-struct Item{
-    int amount;
-    string name;
+
+class Item{
+    private:
+        int amount;
+        string name;
+    public:
+        Item(int amount, string name);
+
+        void setName(string name);
+
+        string getName();
+
+        void addAmount(int amount);
+
+        void setAmount(int amount);
+
+        int getAmount();
 };
 
 namespace Hero{
@@ -33,17 +48,15 @@ namespace Hero{
 
             string getName();
 
-            void addItem(int amount, string name);
+            void addItem(Item item);
 
-            void removeItem(int amount, string name);
+            void removeItem(Item item);
 
             int getItemAmount(string name);
 
             void deleteItems();
 
-            void showInventory();
-
-            void toString();
+            string toString();
 
     };
 }

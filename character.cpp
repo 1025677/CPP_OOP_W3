@@ -4,6 +4,31 @@ using namespace Hero;
 
 int Character::id =  40999;
 
+Item::Item(int amount, string name){
+    this->name = name;
+    this->amount = amount;
+}
+
+void Item::setName(string name){
+    this->name = name;
+}
+
+string Item::getName(){
+    return name;
+}
+
+void Item::setAmount(int amount){
+    this->amount = amount;
+}
+
+int Item::getAmount(){
+    return amount;
+}
+
+void Item::addAmount(int amount){
+    this->amount += amount;
+}
+
 Character::Character(string n){
     this->name = n;
     this->characterID = id;
@@ -21,29 +46,28 @@ string Character::getName(){
     return name;
 }
 
-void Character::addItem(int amount, string name){
-    if(0 < amount){
+void Character::addItem(Item item){
+    if(0 < item.getAmount()){
         for(int i = 0; i < inventory.size(); ++i){
-            if(inventory[i].name == name){
-                    inventory[i].amount += amount;
+            if(inventory[i].getName() == item.getName()){
+                    inventory[i].addAmount(item.getAmount());
                     return;
             }
         }
-        Item inv = {amount, name};
-        inventory.push_back(inv);
+        inventory.push_back(item);
     }
     else
         throw logic_error("Out of range");
 }
 
-void Character::removeItem(int amount, string name){
+void Character::removeItem(Item item){
     for(int i = 0; i < inventory.size(); ++i){
-        if(inventory[i].name == name){
-            if(inventory[i].amount - amount <= 0){
+        if(inventory[i].getName() == item.getName()){
+            if(inventory[i].getAmount() - item.getAmount() <= 0){
                 inventory.erase(inventory.begin() + i);
                 return;
             }
-            inventory[i].amount -= amount;
+            inventory[i].addAmount(-item.getAmount());
             return;
         }
     }
@@ -52,8 +76,8 @@ void Character::removeItem(int amount, string name){
 
 int Character::getItemAmount(string name){
         for(int i = 0; i < inventory.size(); ++i){
-            if(inventory[i].name == name){
-                return inventory[i].amount;
+            if(inventory[i].getName() == name){
+                return inventory[i].getAmount();
             }
         }
         throw logic_error("invalid argument");
@@ -63,23 +87,14 @@ void Character::deleteItems(){
     inventory.clear();
 }
 
-void Character::showInventory(){
-    if(inventory.size() == 0){
-        cout << "empty inventory" << endl;
-    }
-    else{
-        cout << "Item " << setw(25) << "amount " << endl;
-        for(int i = 0; i < inventory.size(); ++i){
-            cout << inventory[i].name << setw(29 - inventory[i].name.length()) << inventory[i].amount << endl;
+
+string Character::toString(){
+    stringstream ss;
+    ss << name << endl;
+    for(int i = 0; i < inventory.size(); ++i){
+            ss << inventory[i].getName() << " " << inventory[i].getAmount() << endl;
         }
-    }
+    ss << characterID << endl;
 
-}
-
-void Character::toString(){
-    cout << "Character's name: " << name << endl;
-    showInventory();
-    cout << "Character's ID: " << characterID << endl;
-    cout << endl;
-
+    return ss.str();
 }
