@@ -13,29 +13,29 @@ class Item{
     public:
         Item();
 
-        Item(const int &amount, const string &name);
+        Item(const int& amount, const string& name);
 
-        void setName(const string &name);
+        void setName(const string& name);
 
         string getName();
 
-        void addAmount(const int &amount);
+        void addAmount(const int& amount);
 
-        void setAmount(const int &amount);
+        void setAmount(const int& amount);
 
         int getAmount();
 
-        bool operator==(const Item &item) const;
+        bool operator==(const Item& item) const;
 
-        bool operator!=(const Item &item) const;
+        bool operator!=(const Item& item) const;
 
-        bool operator<(const Item &item) const;
+        bool operator<(const Item& item) const;
 
-        bool operator<=(const Item &item) const;
+        bool operator<=(const Item& item) const;
 
-        bool operator>(const Item &item) const;
+        bool operator>(const Item& item) const;
 
-        bool operator>=(const Item &item) const;
+        bool operator>=(const Item& item) const;
 
         Item& operator++();
 
@@ -45,9 +45,9 @@ class Item{
 
         Item operator--(int);
 
-        friend ostream& operator<<(ostream& o, const Item &item);
+        friend ostream& operator<<(ostream& o, const Item& item);
 
-        friend istream& operator>>(istream& i, Item &item);
+        friend istream& operator>>(istream& i, Item& item);
 
 };
 
