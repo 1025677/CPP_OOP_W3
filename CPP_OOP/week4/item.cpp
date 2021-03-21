@@ -4,8 +4,8 @@ Item::Item(){
 }
 
 Item::Item(const int &amount, const string& name){
-    this->name = name;
-    this->amount = amount;
+    setName(name);
+    setAmount(amount);
 }
 
 void Item::setName(const string& name){

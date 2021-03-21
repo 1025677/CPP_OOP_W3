@@ -3,20 +3,23 @@
 int Character::id =  40999;
 
 Character::Character(){
-    this->characterID = id;
-    ++id;
+    giveId();
 }
 
-Character::Character(const string& n){
-    this->name = n;
-    this->characterID = id;
-    ++id;
+Character::Character(string n){
+    setName(n);
+    giveId();
 }
 
 Character::~Character(){
 }
 
-void Character::setName(const string& n){
+void Character::giveId(){
+    this->characterID = id;
+    ++id;
+}
+
+void Character::setName(string n){
     name = n;
 }
 
@@ -51,7 +54,7 @@ void Character::removeItem(Item item){
     }
 }
 
-int Character::getItemAmount(const string& name){
+int Character::getItemAmount(string name){
         for(unsigned int i = 0; i < inventory.size(); ++i){
             if(inventory[i].getName() == name){
                 return inventory[i].getAmount();
@@ -83,8 +86,10 @@ ostream& operator<<(ostream& o, const Character& character){
 
 istream& operator>>(istream& i, Character& character){
     Character temp;
-    i >> temp.name;
+    Item item;
+    i >> temp.name >> item;
     character.name = temp.name;
+    character.addItem(item);
     return i;
 }
 
